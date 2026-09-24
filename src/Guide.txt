@@ -1,0 +1,213 @@
+AI RESTART
+==========
+
+Siri AI (the new Siri from Apple Intelligence) on a Mac whose system language it
+does not support — Russian, Polish, Czech and many others.
+
+Siri AI only turns on if the Mac BOOTED with English as the system language. You can
+switch your language back afterwards and Siri AI keeps working until the next restart.
+AI Restart does all of that by itself:
+  1. Click the menu bar icon → "Restart…".
+  2. It quits your apps, switches the system to English and restarts the Mac.
+  3. For 20–60 seconds after login everything is in English: the system is bringing
+     Siri AI up.
+  4. Then your language comes back by itself and your apps reopen in it.
+     You get an "Enhanced Siri is ready" notification.
+
+There is no way to turn Siri AI on without a restart: macOS decides it only at boot.
+
+
+WHAT YOU NEED
+-------------
+  • An Apple Silicon Mac (M1 or newer) with macOS 27 or newer.
+  • Siri language: English (United States) — System Settings → Apple Intelligence & Siri.
+  Nothing else: the app has no dependencies and downloads nothing.
+
+
+INSTALLATION
+------------
+  1. Open the DMG and drag "AI Restart" to Applications.
+  2. Launch it from Applications. The first time, macOS says it cannot verify the
+     developer: System Settings → Privacy & Security → "Open Anyway" at the bottom.
+  3. That's it. The AI Restart icon appears on the right of the menu bar — everything
+     happens from there. The app added itself to login items; it has no Dock icon,
+     that's on purpose.
+
+  If the system is in English right now, the app asks which language to return to.
+  To update: replace the app in Applications with the new one and launch it.
+
+  If you don't see the icon, the menu bar is full and macOS hides the extras behind
+  "«". Remove something you don't need, or drag icons while holding Cmd.
+
+
+FIRST SETUP (if Siri AI has never arrived)
+------------------------------------------
+  The menu has a "First Setup" item that walks you through it and opens the right
+  settings. Once Apple Intelligence has reached your Mac, the item disappears from
+  the main menu and stays in "Settings". In short:
+
+    1. System Settings → General → Language & Region: English (United States) first.
+       Set the Siri language to English (United States) there as well.
+    2. Restart the normal way, from the Apple menu. By hand, on purpose: the Apple
+       Intelligence waitlist only opens on an English system, and that is decided
+       at boot, when the app is not running yet.
+    3. Install AI Restart (it asks which language to return to) and turn on Apple
+       Intelligence: System Settings → Apple Intelligence & Siri.
+    4. Right after that: menu bar icon → "Restore Language…", no restart needed.
+       The waitlist and the model download continue in your own language (tested
+       on two Macs).
+    5. Until Siri AI arrives, restart only through AI Restart. The wait is anything
+       from a few hours to a day.
+
+
+HOW TO USE IT
+-------------
+  Click the AI Restart icon in the menu bar:
+
+    Restart…              a window with a countdown, like the system one
+    Shut Down…            the same, but the Mac shuts down
+    Connect ChatGPT…      only appears while ChatGPT is not connected
+    Restore Language…     only appears while the system is in English
+    First Setup           step-by-step help; disappears once Apple Intelligence has
+                          reached this Mac — after that it lives in "Settings"
+    Settings              first setup, battery percentage in the menu bar, icon style,
+                          low battery threshold and uninstalling the app
+    Instructions          this file
+
+  • While the menu is open, ⌘R (restart) and ⌘Q (shut down) work.
+  • Restart and shut down the Mac ONLY from here. A regular restart from the Apple
+    menu works, but Siri AI stays the old one until you use AI Restart again.
+  • The window has only its own action, "Cancel" and the "Reopen windows" checkbox.
+    Like the system window, it fires by itself after 60 seconds.
+  • "Shut Down…" replaces shutting down from the Apple menu: on the next boot Siri AI
+    comes up just like after a restart.
+  • The "Reopen windows" checkbox brings your apps back in the same order with the
+    same windows. Unchecked, you get a clean desktop.
+  • If some app refuses to quit (waiting for you to save a document, say), the restart
+    is cancelled with a message. Save the document and click again.
+
+
+BATTERY PERCENTAGE IN THE MENU BAR
+----------------------------------
+  Settings → "Battery Percentage in Menu Bar". You get the indicator back: a number
+  with a battery next to it. Since macOS 27 the system draws the percentage INSIDE
+  the icon, and no system setting brings it back out — Control Center only has a
+  "show percentage or not" switch.
+
+  So the app draws the indicator itself: the number and the battery in a single icon,
+  the way it used to be. A separate icon next to the system battery doesn't work —
+  the menu bar keeps its own padding between two icons, and the gap comes out three
+  times wider than it was. The system battery hides while this is on and comes back
+  when you turn the item off or uninstall AI Restart. Switching restarts Control
+  Center for a second, so the icons blink.
+
+  The number uses fixed-width digits, like the system clock, so the battery doesn't
+  jump around as the percentage changes.
+
+  The icon is built from the system's own assets: the images Control Center uses to
+  draw the battery live inside it, and the app takes the nub, the charging bolt and
+  its mask from there — the same large bolt variant the system uses for a body this
+  size. In macOS 27 the body itself is drawn as a fill rather than an image, so that
+  is the only part drawn by hand, sized from that same asset. That's why the icon is
+  indistinguishable from the system one. It takes its color from the menu bar like
+  every other icon and follows light and dark themes. The fill follows the charge
+  level, the bolt is knocked out of it while charging, it's yellow in Low Power Mode
+  and red on a low battery (threshold configurable, see below).
+
+  In the background the app does nothing and never wakes up on a timer: the system
+  tells it when the percentage changed, when the charger was plugged or unplugged,
+  when Low Power Mode was switched — and the icon redraws in the same second as the
+  system one. Everything that needs other programs to run (time remaining, capacity,
+  who is using the energy) is computed only when you open the menu.
+
+  Clicking the indicator shows what the system battery used to show:
+    • how much is left (or how long until fully charged);
+    • battery capacity and cycle count — the same numbers as in Settings → Battery;
+    • which apps use the most energy, with their icons, the hungriest on top. The
+      measurement takes a second and a half, so the list is added to the menu that
+      is already open. It's the "energy impact" Activity Monitor shows: not just the
+      processor, but also wakeups from sleep, the GPU and the disk. Apps are counted
+      together with their helper processes (Safari tabs, renderers and so on);
+      services and background agents don't make the list. There is one difference
+      from the system menu: it lists apps that use a lot of energy CONSTANTLY — the
+      system averages over eight hours and keeps its threshold to itself. Here it's
+      whoever is spending right now, at the moment you opened the menu;
+    • "Low Power Mode and Settings…" opens Settings → Battery. The app cannot turn
+      Low Power Mode on directly: pmset only changes it as an administrator, and the
+      app will not ask for your password.
+
+  Settings → "Icon Style": two versions of the same icon — "Like macOS 27" (a solid
+  body, like the current system one) and "Like macOS 26" (a thin outline with the
+  fill inside it, the way it was before). The size, the position and the placement of
+  the number are identical down to the pixel; only the body drawing changes.
+
+  Settings → "Low Battery": at which percentage the icon turns red and a warning
+  arrives — 5, 10, 15 or 20 %. The default is 10 %, same as the system warning. The
+  app has its own because the system threshold cannot be changed. The warning comes
+  once per discharge: again only after the charge rises above the threshold or you
+  plug the charger in. If Low Power Mode is already on, it doesn't come at all. The
+  app cannot turn Low Power Mode on for you: pmset only changes it as an
+  administrator and the app will not ask for your password — so the warning tells
+  you where the switch is.
+
+  Settings → "Percentage Opens AI Restart Menu": then the app doesn't need an icon of
+  its own, the menu opens when you click the number, and the battery details move to
+  a "Battery" submenu. In a crowded menu bar that frees up a slot — one icon fewer.
+
+  The icon appears to the left of all the others. To put it right next to the battery
+  (or where the battery used to be), drag it while holding Cmd — you can drag it into
+  the system part of the menu bar, and the spot is remembered. Placing it there
+  programmatically is impossible: in macOS 27 only dragging sets icon positions.
+
+
+CHATGPT IN SIRI
+---------------
+  ChatGPT in Siri works in any system language, but turning the extension on and
+  signing in is ONLY possible while the system is in English: in other languages
+  macOS considers ChatGPT unavailable and the sign-in is dropped after a second.
+
+  While ChatGPT is not connected, the menu has "Connect ChatGPT…". It restarts the
+  Mac the same way but stops in English and opens Siri settings: turn the extension
+  on, press Sign In, sign in to your account and press Done — your language comes
+  back. The window waits 15 minutes, after which the language returns by itself. Once
+  ChatGPT is connected, the item disappears.
+
+  IMPORTANT: after your language comes back, the settings will again show a "Sign In…"
+  button and "ChatGPT unavailable". That's not true — ChatGPT works under your
+  account. Do NOT press "Sign In…" and don't touch the ChatGPT switch in your own
+  language.
+
+  Using it: pick ChatGPT in the Siri window or start your question with "Ask
+  ChatGPT…". Questions about Siri and Apple itself are kept by Siri — ask those in the
+  ChatGPT app. ChatGPT answers are labelled "ChatGPT"; without the label, Siri
+  answered.
+
+
+THIS IS NORMAL
+--------------
+  • The lock screen and the Apple menu windows ("Restart?", "Shut Down?") stay in
+    English: they are drawn by the login session, which started in English.
+  • The "Background activity" notification after a restart is AI Restart restoring
+    your language.
+  • On a Mac with a Touch Bar the Siri icon in it stays the old one — Apple never
+    made a new one.
+  • Siri answers "I can't help with that" to profanity and ambiguous words — that's
+    an Apple filter and it cannot be turned off. Rephrase.
+
+
+IF SOMETHING WENT WRONG
+-----------------------
+  • Siri AI didn't turn on after the restart → restart from here once more. Your
+    language comes back either way, and the notification says that Siri AI did not
+    turn on this boot.
+  • The system is still in English more than 5 minutes after login → menu bar icon →
+    "Restore Language…".
+  • Logs: ~/Library/Application Support/AIRestart/login.log and errors.log. They are
+    in Russian — attach them as they are when you report a problem.
+
+
+UNINSTALLING
+------------
+  Menu bar icon → Settings → "Uninstall AI Restart". Your language is restored, the
+  login item is removed, settings and logs are erased. Then drag the app from
+  Applications to the Trash.
